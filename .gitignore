@@ -1,3 +1,7 @@
+# Maven output #
+################
+target/
+
 # Package Files #
 #################
 *.jar
