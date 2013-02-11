@@ -1,3 +1,7 @@
+# product installs #
+####################
+terracotta/terracotta
+
 # Maven output #
 ################
 target/
