@@ -16,6 +16,17 @@
         <version>6.6</version>
     </dependency>
     <dependency>
+        <groupId>net.sf.ehcache</groupId>
+        <artifactId>ehcache-core</artifactId>
+        <version>2.6.3</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-terracotta</artifactId>
+      <version>2.6.3</version>
+    </dependency>
+    
+    <dependency>
       <groupId>struts</groupId>
       <artifactId>struts</artifactId>
       <version>1.2.9</version>
@@ -25,6 +36,7 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -74,8 +86,43 @@
           <stopKey>STOP</stopKey>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <!-- here the phase you need -->
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>../terracotta/terracotta/sessions/samples/townsend/jetty6.1/${server.dir}/webapps</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>target</directory>
+			        <includes>
+			          <include>Townsend.war</include>
+			        </includes>
+			      </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
 
     </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 
   <repositories>
@@ -91,7 +138,22 @@
 
   <profiles>
     <profile>
+    	<id>gemfire</id>
+    	<properties>
+    		<cache.dao>com.generic.cache.GemfireDAO</cache.dao>
+    	</properties>
+    </profile>
+    <profile>
+    	<id>terracotta</id>
+    	<properties>
+    		<cache.dao>com.generic.cache.TerracottaDAO</cache.dao>
+    	</properties>
+    </profile>
+    <profile>
       <id>9081</id>
+      <properties>
+    		<server.dir>9081</server.dir>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -113,6 +175,9 @@
     </profile>
     <profile>
       <id>9082</id>
+      <properties>
+        <server.dir>9082</server.dir>
+      </properties>
       <build>
         <plugins>
           <plugin>

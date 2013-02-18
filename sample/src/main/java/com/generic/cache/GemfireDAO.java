@@ -119,9 +119,11 @@ public class GemfireDAO implements CacheDAO{
   }
 
   public void setAttribute(String name, Object obj) {
+	System.out.println("GemfireDAO: setAttribute " + name);
     session.put(name, obj);
   }
   public Object getAttribute(String name) {
+	System.out.println("GemfireDAO: getAttribute " + name);
     return session.get(name);
   }
   /**

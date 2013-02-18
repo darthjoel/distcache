@@ -37,7 +37,7 @@
   <action
   	path="/displayUserList"
   	type="demo.townsend.action.DisplayUserListAction"
-  	scope="session"
+  	scope="request"
   	name="displayUserListForm"
   	validate="true">
   	<forward name="Success" path="/display.jsp" redirect="true"/>
