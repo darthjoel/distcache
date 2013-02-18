@@ -9,6 +9,7 @@ Vagrant::Config.run do |config|
     #chef.recipe_url = "http://files.vagrantup.com/getting_started/cookbooks.tar.gz"
 
     # Tell chef what recipe to run
+    chef.add_recipe("libxtst6")
     chef.add_recipe("vagrant_main")
     chef.add_recipe("java")
     chef.add_recipe("firefox")
